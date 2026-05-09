@@ -1,0 +1,298 @@
+CREATE DATABASE Bahizad_Samin_db
+CREATE TABLE Price (
+	Price_ID INT NOT NULL,
+	Property_ID INT NOT NULL,
+	Record_Price_estimate INT,
+	Listed_Price INT,
+	Price_Settlement VARCHAR(10),
+	PRIMARY KEY (Price_ID),
+
+);
+
+CREATE TABLE Offers (
+	Offer_ID INT NOT NULL,
+	Offer_Status VARCHAR(8),
+	PRIMARY KEY (Offer_ID),
+
+);
+
+CREATE TABLE Office_Address (
+	Office_ID INT NOT NULL,
+	Location	VARCHAR(20),
+	Street		VARCHAR(50),
+	City		VARCHAR(20)	,
+	PRIMARY KEY (Office_ID)
+);
+
+CREATE TABLE Open_House(
+	Open_House_ID INT NOT NULL,
+	Property_ID INT NOT NULL,
+	Date Date,
+	Agent_ID INT NOT NULL,
+	Start_Time TIME,
+	End_Time TIME,
+	PRIMARY KEY (Open_House_ID),
+
+
+);
+
+CREATE TABLE Property_Location (
+  Location_ID INT NOT NULL,
+  Community_Name VARCHAR(10),
+  School_DistrictID VARCHAR(4),
+  PRIMARY KEY (Location_ID)
+);
+CREATE TABLE Property_Status (
+  Property_Status_ID INT NOT NULL,
+  Current_Status VARCHAR(10),
+  PRIMARY KEY  (Property_Status_ID)
+);
+
+CREATE TABLE Client_Activity (
+  Client_ActivityID INT NOT NULL,
+  Client_ID INT NOT NULL,
+  Closing_Date DATE,
+  Offer_ID INT,
+  PRIMARY KEY (Client_ActivityID)
+);
+
+
+CREATE TABLE Address (
+  Property_Addr VARCHAR(50),
+  Street		VARCHAR(10),
+  City		VARCHAR(8)	,
+  Zipcode	INT,
+  Property_ID INT NOT NULL,
+  PRIMARY KEY (Property_Addr)
+);
+
+INSERT INTO ADDRESS
+VALUES( '8590', 'Helen Ave','Kent', 98031, 5337);
+
+INSERT INTO ADDRESS
+VALUES( '819 ', 'Thomas st','Bothell', 98011, 5357);
+INSERT INTO ADDRESS
+VALUES( '9574 ', 'Bohemia St','Bothell', 98011, 5134);
+INSERT INTO ADDRESS
+VALUES( '771', '6th Drive','Seattle', 98101, 5127);
+INSERT INTO ADDRESS
+VALUES( '456', 'Olive Road','Seattle', 98101, 5145);
+
+
+CREATE TABLE Clients (
+  Client_ID INT NOT NULL,
+  Client_Type_ID INT NOT NULL,
+  First_Name VARCHAR(8)	,
+  Last_Name VARCHAR(10),
+  Phone_Num CHAR(12),
+  PRIMARY KEY (Client_ID)
+);
+
+CREATE TABLE Contractors (
+  Contractor_ID INT NOT NULL,
+  Constuction_Type VARCHAR(80) NOT NULL,
+  Average_Price VARCHAR(30) ,
+  Office_ID INT,
+  Phone_Num CHAR(12),
+  PRIMARY KEY (Contractor_ID)
+);
+
+CREATE TABLE House_Tour_Appointment (
+  Appt_ID INT NOT NULL,
+  Property_ID INT NOT NULL,
+  Date DATE,
+  Time TIME,
+  Client_ID INT ,
+  Agent_ID INT ,
+  PRIMARY KEY (Appt_ID)
+);
+
+
+CREATE TABLE Property_Type (
+  Property_TypeID INT NOT NULL,
+  Property_Type VARCHAR(20)
+  PRIMARY KEY (Property_TypeID)
+);
+
+
+CREATE TABLE Agents (
+  AgentID INT NOT NULL,
+  First_Name VARCHAR(8)	,
+  Last_Name VARCHAR(10),
+  Phone_Num CHAR(12),
+  Office_ID INT,
+  Email VARCHAR(50),
+  PRIMARY KEY (AgentID)
+);
+
+
+
+CREATE TABLE Properties (
+  Property_ID INT NOT NULL,
+  Square_feet INT,
+  Property_TypeID INT ,
+  Property_StatusID INT ,
+  Year_Built NUMERIC,
+  Price_ID INT,
+  Property_Addr VARCHAR(50),
+  bedrooms INT,
+  bathrooms INT,
+  Location_ID INT NOT NULL,
+  AgentID INT,
+  PRIMARY KEY (Property_ID)
+);
+
+CREATE TABLE Lenders (
+  Lender_ID INT NOT NULL,
+  First_Name VARCHAR(8)	,
+  Last_Name VARCHAR(10),
+  Phone_Num CHAR(12),
+  Office_ID  INT,
+  Email VARCHAR(50),
+  PRIMARY KEY (Lender_ID)
+);
+
+CREATE TABLE School_District(
+  School_DistrictID VARCHAR(4),
+  Location_ID INT NOT NULL,
+  SD_Name  VARCHAR(50),
+  PRIMARY KEY (School_DistrictID)
+);
+
+CREATE TABLE Client_Type (
+  Client_Type_ID INT NOT NULL,
+  Client_Type VARCHAR(12)
+  PRIMARY KEY (Client_Type_ID)
+);
+
+INSERT INTO Properties
+VALUES(5134,1800,1,0003,2000,458,'525 Pottsdamer Street', 4, 2, 200, 225);
+
+INSERT INTO Properties
+VALUES(5145,1800,5,0002,2019,300,'62 Potter Street', 4, 2, 300, 240);
+INSERT INTO Properties
+VALUES(5127,1420,3,0001,2000,325,'188th PL ', 1, 2, 300, 225);
+--DELETE FROM Properties WHERE Property_ID=5127;DELETE FROM Properties WHERE Property_ID=5357;DELETE FROM Properties WHERE Property_ID=5134;DELETE FROM Properties WHERE Property_ID=5145;DELETE FROM Properties WHERE Property_ID=5337;
+INSERT INTO Properties
+VALUES(5357,1500,3,0002,2000,450,'1402 Ocean Ave ', 1, 2, 200, 240);
+
+INSERT INTO Properties
+VALUES(5337,1500,3,0001,1960,500,'1400 Ocean Ave ', 1, 2, 100, 300);
+
+
+INSERT INTO PROPERTY_LOCATION
+VALUES(	300, 'Seattle', 'SSD');
+
+INSERT INTO PROPERTY_LOCATION
+VALUES(200, 'Bothell','NSD');
+
+INSERT INTO PROPERTY_LOCATION
+VALUES(100,'Kent','KSD');
+
+INSERT INTO PRICE
+VALUES(500,5337,500000,500934,NULL);
+INSERT INTO PRICE
+VALUES(450,5357,500000,500934,'PENDING');
+INSERT INTO PRICE
+VALUES(300,5145,400500,458934,'PENDING');
+INSERT INTO PRICE
+VALUES(325,5127,395000,400000,NULL);
+INSERT INTO PRICE
+VALUES(458,5134,460000,356000,400000);
+--DELETE FROM PRICE WHERE Price_ID=500934;
+--DELETE FROM PRICE WHERE PRICE_ID= 458934;
+
+INSERT INTO OFFERS
+VALUES( 1200, 'DENIED');
+INSERT INTO OFFERS
+VALUES( 2000, 'ACCEPTED');
+
+INSERT INTO OFFERS
+VALUES( 1500, 'DENIED');
+
+INSERT INTO Office_Address
+VALUES(1000, 'King County', '17320 SE 186th Way', 'Renton');
+INSERT INTO Office_Address
+VALUES(2500, 'King County', '20415 72nd Ave S ', 'Kent');
+INSERT INTO Office_Address
+VALUES(1390, 'King County', '11626 SE 168th St', 'Kenmore');
+INSERT INTO Office_Address
+VALUES(1385, 'Pierce County', '17255 Meridian Ave N', 'Puyallup');
+INSERT INTO Office_Address
+VALUES(1269, 'King County', '4735 NE 4th St', 'Renton');
+INSERT INTO Office_Address
+VALUES(3000, 'King County', '441 Ramsay Way', 'Kent');
+
+
+INSERT INTO OPEN_HOUSE
+VALUES( 12345, 5127, '2021-06-03', 225, '14:00:00','15:00:00');
+
+INSERT INTO OPEN_HOUSE
+VALUES( 12346, 5134, '2021-06-05', 225, '11:00:00','16:00:00');
+
+ INSERT INTO PROPERTY_STATUS
+ VALUES( 1, 'FOR SELL');
+  INSERT INTO PROPERTY_STATUS
+  VALUES(2, 'PENDING...');
+
+  INSERT INTO PROPERTY_STATUS
+ VALUES( 3, 'SOLD!');
+ INSERT INTO PROPERTY_STATUS
+ VALUES( 4, 'FOR RENTAL');
+
+ INSERT INTO Client_Type
+ VALUES( 1,' SELLER');
+ INSERT INTO Client_Type
+ VALUES( 2, 'BUYER');
+ INSERT INTO Client_Type
+ VALUES( 3, 'RENTER');
+
+ INSERT INTO CLIENTS
+VALUES( 1, 2, 'JOHN', 'SMITH', '2068983522');
+
+INSERT INTO CLIENTS
+VALUES( 2, 1, 'JEEN', 'LOUIS', '206358422');
+
+INSERT INTO CLIENTS
+VALUES(3, 3, 'SARAH', 'JONES', '2537894672');
+
+INSERT INTO CONTRACTORS
+VALUES ( 532, 'KICHEN REMODELING', '300 PER HOUR', 3000, '2006983464');
+INSERT INTO CONTRACTORS
+VALUES( 358, 'ENTIRE HOUSE REMODELING, REBUILD, OR NEW BUILD', '500 PER HOUR', 3000, '2006983464');
+
+INSERT INTO AGENTS
+VALUES( 225, 'ALEX', 'ROSS', '425-345-8839',1000,'alex_ross@agent.com');
+INSERT INTO AGENTS
+VALUES( 240, 'TROY', 'GOMEZ', '425-305-3509',2500, 'troy.gomez@agent.com');
+INSERT INTO AGENTS
+VALUES( 300, 'LEILA', 'FANNY', '425-405-8449',1390, 'fanny_leila@agent.com');
+
+INSERT INTO PROPERTY_TYPE
+VALUES( 1, 'SINGLE_FAMILY');
+INSERT INTO PROPERTY_TYPE
+VALUES( 2, 'CONDO');
+INSERT INTO PROPERTY_TYPE
+VALUES( 3, 'TOWNHOUSE');
+INSERT INTO PROPERTY_TYPE
+VALUES( 4, 'MOBILE HOME');
+INSERT INTO PROPERTY_TYPE
+VALUES( 5, 'MULTIFAMILY HOUSE');
+
+INSERT INTO LENDERS
+VALUES( 211, 'JOSH', 'ADAMS', '358-425-8837', 1269, 'j.adams@lender.com');
+
+INSERT INTO HOUSE_TOUR_APPOINTMENT
+	VALUES( 1, 5127, '2021-06-09','14:00:00',1,240);
+INSERT INTO HOUSE_TOUR_APPOINTMENT
+	VALUES( 2, 5127, '2021-06-09','16:00:00',2,225);
+INSERT INTO HOUSE_TOUR_APPOINTMENT
+	VALUES( 3, 5145, '2021-06-12','14:00:00',1,240);
+
+INSERT INTO Client_Activity
+VALUES( 10, 1, NULL, 1200);
+INSERT INTO Client_Activity
+VALUES( 20, 2, NULL, 1500);
+INSERT INTO Client_Activity
+VALUES( 30, 3, '2021-05-28', 2000);
+
